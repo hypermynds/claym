@@ -12,6 +12,7 @@
 //!
 //! * [`assert_err!`]
 //! * [`assert_ok!`]
+//! * [`assert_ok_eq!`]
 //!
 //! Assertions for [`Option`] variants:
 //!
@@ -22,6 +23,7 @@
 mod assert_err;
 mod assert_none;
 mod assert_ok;
+mod assert_ok_eq;
 mod assert_some;
 mod assert_some_eq;
 #[doc(hidden)]
