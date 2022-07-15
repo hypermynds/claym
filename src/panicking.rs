@@ -2,7 +2,6 @@ use core::fmt;
 
 #[doc(hidden)]
 pub enum Expected<'a, T> {
-    Some,
     Value(&'a T),
     Message(&'static str),
 }
@@ -10,9 +9,8 @@ pub enum Expected<'a, T> {
 impl<'a, T: fmt::Debug> fmt::Debug for Expected<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Some => f.write_str("`Some(..)`"),
             Self::Value(ref value) => write!(f, "`{:?}`", value),
-            Self::Message(ref msg) => f.write_str(msg),
+            Self::Message(msg) => f.write_str(msg),
         }
     }
 }
@@ -27,7 +25,7 @@ impl<'a, T: fmt::Debug> fmt::Debug for Unexpected<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::Value(ref value) => write!(f, "`{:?}`", value),
-            Self::Message(ref msg) => f.write_str(msg),
+            Self::Message(msg) => f.write_str(msg),
         }
     }
 }

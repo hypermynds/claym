@@ -1,5 +1,7 @@
 #![no_std]
 
+//! Assertion macros.
+
 mod assert_none;
 mod assert_some;
 mod assert_some_eq;
