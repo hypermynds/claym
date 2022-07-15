@@ -5,7 +5,7 @@ macro_rules! assert_matches {
         match $expression {
             $($pattern)|+ $(if $guard)? => {},
             other => $crate::panicking::assert_matches_failed(
-                $crate::panicking::Unexpected::Value(&other),
+                $crate::panicking::Value::Ref(&other),
                 stringify!($($pattern)|+ $(if $guard)?),
                 None,
             )
@@ -15,7 +15,7 @@ macro_rules! assert_matches {
         match $expression {
             $($pattern)|+ $(if $guard)? => {},
             other => $crate::panicking::assert_matches_failed(
-                $crate::panicking::Unexpected::Value(&other),
+                $crate::panicking::Value::Ref(&other),
                 stringify!($($pattern)|+ $(if $guard)?),
                 Some(format_args!($($arg)+)),
             )

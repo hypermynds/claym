@@ -1,31 +1,16 @@
 use core::fmt;
 
 #[doc(hidden)]
-pub enum Expected<'a, T> {
-    Value(&'a T),
-    Message(&'static str),
+pub enum Value<'a, T> {
+    Ref(&'a T),
+    Str(&'static str),
 }
 
-impl<'a, T: fmt::Debug> fmt::Debug for Expected<'a, T> {
+impl<'a, T: fmt::Debug> fmt::Debug for Value<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Value(ref value) => write!(f, "`{:?}`", value),
-            Self::Message(msg) => f.write_str(msg),
-        }
-    }
-}
-
-#[doc(hidden)]
-pub enum Unexpected<'a, T> {
-    Value(&'a T),
-    Message(&'static str),
-}
-
-impl<'a, T: fmt::Debug> fmt::Debug for Unexpected<'a, T> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::Value(ref value) => write!(f, "`{:?}`", value),
-            Self::Message(msg) => f.write_str(msg),
+            Self::Ref(ref value) => write!(f, "`{:?}`", value),
+            Self::Str(msg) => f.write_str(msg),
         }
     }
 }
@@ -33,8 +18,8 @@ impl<'a, T: fmt::Debug> fmt::Debug for Unexpected<'a, T> {
 /// Internal function for `assert_*!` macros.
 #[doc(hidden)]
 pub fn assert_failed<T>(
-    expected: Expected<'_, T>,
-    unexpected: Unexpected<'_, T>,
+    expected: Value<'_, T>,
+    unexpected: Value<'_, T>,
     args: Option<fmt::Arguments<'_>>,
 ) -> !
 where
@@ -58,7 +43,7 @@ where
 /// Internal function for `assert_matches!` macro.
 #[doc(hidden)]
 pub fn assert_matches_failed<T>(
-    unexpected: Unexpected<'_, T>,
+    unexpected: Value<'_, T>,
     variants: &'static str,
     args: Option<fmt::Arguments<'_>>,
 ) -> !

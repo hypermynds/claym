@@ -6,8 +6,8 @@ macro_rules! assert_some {
             Some(value) => value,
             none @ None => {
                 $crate::panicking::assert_failed(
-                    $crate::panicking::Expected::Message("`Some(..)`"),
-                    $crate::panicking::Unexpected::Value(&none),
+                    $crate::panicking::Value::Str("`Some(..)`"),
+                    $crate::panicking::Value::Ref(&none),
                     None,
                 );
             }
@@ -18,8 +18,8 @@ macro_rules! assert_some {
             Some(value) => value,
             none @ None => {
                 $crate::panicking::assert_failed(
-                    $crate::panicking::Expected::Message("`Some(..)`"),
-                    $crate::panicking::Unexpected::Value(&none),
+                    $crate::panicking::Value::Str("`Some(..)`"),
+                    $crate::panicking::Value::Ref(&none),
                     Some(format_args!($($arg)+)),
                 );
             }

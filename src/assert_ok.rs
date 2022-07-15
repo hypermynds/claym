@@ -6,8 +6,8 @@ macro_rules! assert_ok {
             Ok(value) => value,
             err @ Err(..) => {
                 $crate::panicking::assert_failed(
-                    $crate::panicking::Expected::Message("`Ok(..)`"),
-                    $crate::panicking::Unexpected::Value(&err),
+                    $crate::panicking::Value::Str("`Ok(..)`"),
+                    $crate::panicking::Value::Ref(&err),
                     None,
                 );
             }
@@ -18,8 +18,8 @@ macro_rules! assert_ok {
             Ok(value) => value,
             err @ Err(..) => {
                 $crate::panicking::assert_failed(
-                    $crate::panicking::Expected::Message("`Ok(..)`"),
-                    $crate::panicking::Unexpected::Value(&err),
+                    $crate::panicking::Value::Str("`Ok(..)`"),
+                    $crate::panicking::Value::Ref(&err),
                     Some(format_args!($($arg)+)),
                 );
             }
