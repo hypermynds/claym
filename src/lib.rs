@@ -13,6 +13,7 @@
 //! * [`assert_ge!`]
 //! * [`assert_gt!`]
 //! * [`assert_le!`]
+//! * [`assert_lt!`]
 //! * [`assert_matches!`]
 //!
 //! Assertions for [`Result`] variants:
@@ -31,6 +32,7 @@ mod assert_err;
 mod assert_ge;
 mod assert_gt;
 mod assert_le;
+mod assert_lt;
 mod assert_matches;
 mod assert_none;
 mod assert_ok;
