@@ -27,6 +27,12 @@
 //! * [`assert_none!`]
 //! * [`assert_some!`]
 //! * [`assert_some_eq!`]
+//!
+//! Assertions for [`Poll`] variants:
+//!
+//! * [`assert_ready!`]
+//!
+//! [`Poll`]: [`core::task::Poll`]
 
 mod assert_err;
 mod assert_ge;
@@ -37,6 +43,7 @@ mod assert_matches;
 mod assert_none;
 mod assert_ok;
 mod assert_ok_eq;
+mod assert_ready;
 mod assert_some;
 mod assert_some_eq;
 #[doc(hidden)]
