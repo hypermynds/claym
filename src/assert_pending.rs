@@ -1,6 +1,6 @@
-/// Asserts that expression returns [`Poll::Pending`] variant.
+/// Asserts that expression returns [`Pending`] variant.
 ///
-/// [`Poll::Pending`]: core::task::Poll::Pending
+/// [`Pending`]: core::task::Poll::Pending
 #[macro_export]
 macro_rules! assert_pending {
     ($cond:expr $(,)?) => {
@@ -29,9 +29,9 @@ macro_rules! assert_pending {
     };
 }
 
-/// Asserts that expression returns [`Poll::Pending`] variant.
+/// Asserts that expression returns [`Pending`] variant.
 ///
-/// [`Poll::Pending`]: core::task::Poll::Pending
+/// [`Pending`]: core::task::Poll::Pending
 #[macro_export]
 macro_rules! debug_assert_pending {
     ($($arg:tt)*) => {
