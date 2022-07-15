@@ -64,3 +64,51 @@ where
         ),
     }
 }
+
+#[doc(hidden)]
+pub enum Comparison {
+    Greater,
+    GreaterEqual,
+    Less,
+    LessEqual,
+}
+
+impl fmt::Display for Comparison {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Greater => f.write_str(">"),
+            Self::GreaterEqual => f.write_str(">="),
+            Self::Less => f.write_str("<"),
+            Self::LessEqual => f.write_str("<="),
+        }
+    }
+}
+
+/// Internal function for `assert_*` comparison macros.
+#[doc(hidden)]
+pub fn assert_comparison_failed<L, R>(
+    cmp: Comparison,
+    left: Value<'_, L>,
+    right: Value<'_, R>,
+    args: Option<fmt::Arguments<'_>>,
+) -> !
+where
+    L: fmt::Debug,
+    R: fmt::Debug,
+{
+    match args {
+        Some(args) => core::panic!(
+            "assertion failed: left {} right\n left: {:?}\nright: {:?}\n{}",
+            cmp,
+            left,
+            right,
+            args,
+        ),
+        None => core::panic!(
+            "assertion failed: left {} right\n left: {:?}\nright: {:?}",
+            cmp,
+            left,
+            right,
+        ),
+    }
+}
