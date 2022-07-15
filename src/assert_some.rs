@@ -20,7 +20,7 @@ macro_rules! assert_some {
                 $crate::panicking::assert_failed(
                     $crate::panicking::Expected::Message("`Some(..)`"),
                     $crate::panicking::Unexpected::Value(&none),
-                    Option::Some(format_args!($($arg)+)),
+                    Some(format_args!($($arg)+)),
                 );
             }
         }
