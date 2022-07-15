@@ -1,6 +1,6 @@
 /// Asserts that expression returns [`Poll::Ready`] variant.
 ///
-/// [`Poll::Ready`]: https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Ready
+/// [`Poll::Ready`]: core::task::Poll::Ready
 #[macro_export]
 macro_rules! assert_ready {
     ($cond:expr $(,)?) => {
@@ -31,7 +31,7 @@ macro_rules! assert_ready {
 
 /// Asserts that expression returns [`Poll::Ready`] variant.
 ///
-/// [`Poll::Ready`]: https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Ready
+/// [`Poll::Ready`]: core::task::Poll::Ready
 #[macro_export]
 macro_rules! debug_assert_ready {
     ($($arg:tt)*) => {
