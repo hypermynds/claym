@@ -32,9 +32,9 @@ impl<'a, T: fmt::Debug> fmt::Debug for Unexpected<'a, T> {
 
 /// Internal function for `assert_*!` macros.
 #[doc(hidden)]
-pub fn assert_failed<'a, T>(
-    expected: Expected<'a, T>,
-    unexpected: Unexpected<'a, T>,
+pub fn assert_failed<T>(
+    expected: Expected<'_, T>,
+    unexpected: Unexpected<'_, T>,
     args: Option<fmt::Arguments<'_>>,
 ) -> !
 where
@@ -51,6 +51,31 @@ where
             "assertion failed: expected {:?}, got {:?}",
             expected,
             unexpected,
+        ),
+    }
+}
+
+/// Internal function for `assert_matches!` macro.
+#[doc(hidden)]
+pub fn assert_matches_failed<T>(
+    unexpected: Unexpected<'_, T>,
+    variants: &'static str,
+    args: Option<fmt::Arguments<'_>>,
+) -> !
+where
+    T: fmt::Debug,
+{
+    match args {
+        Some(args) => core::panic!(
+            "assertion failed: expression does not match any of the given variants, got {:?}\nvariants: `{}`\n{}",
+            unexpected,
+            variants,
+            args,
+        ),
+        None => core::panic!(
+            "assertion failed: expression does not match any of the given variants, got {:?}\nvariants: `{}`",
+            unexpected,
+            variants,
         ),
     }
 }

@@ -8,6 +8,10 @@
 //! All the macros in this crate has `debug_*` counterparts, like any assertion macros in the
 //! standard libraries.
 //!
+//! Assertions similar to [`assert_eq!`] or [`assert_ne!`]:
+//!
+//! * [`assert_matches!`]
+//!
 //! Assertions for [`Result`] variants:
 //!
 //! * [`assert_err!`]
@@ -21,6 +25,7 @@
 //! * [`assert_some_eq!`]
 
 mod assert_err;
+mod assert_matches;
 mod assert_none;
 mod assert_ok;
 mod assert_ok_eq;
