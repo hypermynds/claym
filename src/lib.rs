@@ -33,6 +33,7 @@
 //! * [`assert_pending!`]
 //! * [`assert_ready!`]
 //! * [`assert_ready_eq!`]
+//! * [`assert_ready_err!`]
 //!
 //! [`Poll`]: core::task::Poll
 
@@ -48,6 +49,7 @@ mod assert_ok_eq;
 mod assert_pending;
 mod assert_ready;
 mod assert_ready_eq;
+mod assert_ready_err;
 mod assert_some;
 mod assert_some_eq;
 #[doc(hidden)]
