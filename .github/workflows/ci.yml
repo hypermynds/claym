@@ -10,6 +10,12 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain:
+          - 1.56
+          - stable
     steps:
       - name: Setup | Checkout repository
         uses: actions/checkout@v3
@@ -17,7 +23,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: ${{ matrix.toolchain }}
           override: true
       - name: Setup | Cache rust
         uses: Swatinem/rust-cache@v1
