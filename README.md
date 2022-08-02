@@ -1,5 +1,7 @@
 # claym
 
+[![Latest Version](https://img.shields.io/crates/v/claym.svg)](https://crates.io/crates/claym)
+[![Latest Version](https://docs.rs/claym/badge.svg)](https://docs.rs/claym)
 [![Build status](https://github.com/hypermynds/claym/actions/workflows/ci.yml/badge.svg)](https://github.com/hypermynds/claym/actions/workflows/ci.yml)
 ![Apache 2.0 OR MIT licensed](https://img.shields.io/badge/license-Apache2.0%2FMIT-blue.svg)
 ![no-std compatible](https://img.shields.io/badge/no--std-compatible-brightgreen)
@@ -11,6 +13,15 @@ This crate provides the same assertion macros of
 [claim](https://crates.io/crates/claim), but it has been devepoled without
 dependencies (included build dependencies) and to be used only with "modern"
 version of Rust.
+
+Add the following to your `Cargo.toml` manifest to replace `claim` with `claym`
+for tests:
+
+```toml
+[dev-dependencies]
+claim = { package = "claym", version = "0.2.0" }
+```
+
 
 ## License
 

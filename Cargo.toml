@@ -9,5 +9,6 @@ categories = ["development-tools", "development-tools::testing", "no-std"]
 keywords = ["assert", "test", "testing"]
 homepage = "https://github.com/hypermynds/claym"
 repository = "https://github.com/hypermynds/claym"
+documentation = "https://docs.rs/claym"
 edition = "2021"
 rust-version = "1.56"
