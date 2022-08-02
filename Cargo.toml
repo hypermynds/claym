@@ -3,6 +3,7 @@ name = "claym"
 description = "Assertion macros (without dependencies)"
 version = "0.2.0"
 authors = ["Mattia Penati <mp@hypermynds.com>"]
+readme = "README.md"
 license = "Apache-2.0 OR MIT"
 categories = ["development-tools", "development-tools::testing", "no-std"]
 keywords = ["assert", "test", "testing"]
