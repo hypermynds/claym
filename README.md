@@ -1,5 +1,6 @@
 # claym
 
+[![Build status](https://github.com/hypermynds/claym/actions/workflows/ci.yml/badge.svg)](https://github.com/hypermynds/claym/actions/workflows/ci.yml)
 ![Apache 2.0 OR MIT licensed](https://img.shields.io/badge/license-Apache2.0%2FMIT-blue.svg)
 ![no-std compatible](https://img.shields.io/badge/no--std-compatible-brightgreen)
 ![Version compatibility](https://img.shields.io/badge/Rust-1.56%2B-blue)
