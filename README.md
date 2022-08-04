@@ -19,7 +19,7 @@ for tests:
 
 ```toml
 [dev-dependencies]
-claim = { package = "claym", version = "0.2.0" }
+claim = { package = "claym", version = "0.3.0" }
 ```
 
 
