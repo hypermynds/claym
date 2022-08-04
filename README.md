@@ -11,7 +11,7 @@
 
 This crate provides the same assertion macros of
 [claim](https://crates.io/crates/claim), but it has been devepoled without
-dependencies (included build dependencies) and to be used only with "modern"
+dependencies (included build dependencies) and to be used only with newer
 version of Rust.
 
 Add the following to your `Cargo.toml` manifest to replace `claim` with `claym`
