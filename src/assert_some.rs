@@ -4,25 +4,20 @@ macro_rules! assert_some {
     ($cond:expr $(,)?) => {
         match $cond {
             Some(value) => value,
-            none @ None => {
-                $crate::panicking::assert_failed(
-                    $crate::panicking::Value::Str("`Some(..)`"),
-                    $crate::panicking::Value::Ref(&none),
-                    None,
-                );
-            }
+            none @ None => $crate::assert_failed!(
+                $crate::panicking::Msg("`Some(..)`"),
+                $crate::panicking::Ref(&none),
+            ),
         }
     };
     ($cond:expr, $($arg:tt)+) => {
         match $cond {
             Some(value) => value,
-            none @ None => {
-                $crate::panicking::assert_failed(
-                    $crate::panicking::Value::Str("`Some(..)`"),
-                    $crate::panicking::Value::Ref(&none),
-                    Some(format_args!($($arg)+)),
-                );
-            }
+            none @ None => $crate::assert_failed!(
+                $crate::panicking::Msg("`Some(..)`"),
+                $crate::panicking::Ref(&none),
+                $($arg)+
+            ),
         }
     };
 }

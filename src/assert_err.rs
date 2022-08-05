@@ -4,25 +4,20 @@ macro_rules! assert_err {
     ($cond:expr $(,)?) => {
         match $cond {
             Err(err) => err,
-            ok @ Ok(_) => {
-                $crate::panicking::assert_failed(
-                    $crate::panicking::Value::Str("`Err(..)`"),
-                    $crate::panicking::Value::Ref(&ok),
-                    None,
-                );
-            }
+            ok @ Ok(_) => $crate::assert_failed!(
+                $crate::panicking::Msg("`Err(..)`"),
+                $crate::panicking::Ref(&ok),
+            ),
         }
     };
     ($cond:expr, $($arg:tt)+) => {
         match $cond {
             Err(err) => err,
-            ok @ Ok(_) => {
-                $crate::panicking::assert_failed(
-                    $crate::panicking::Value::Str("`Err(..)`"),
-                    $crate::panicking::Value::Ref(&ok),
-                    Some(format_args!($($arg)+)),
-                );
-            }
+            ok @ Ok(_) => $crate::assert_failed!(
+                $crate::panicking::Msg("`Err(..)`"),
+                $crate::panicking::Ref(&ok),
+                $($arg)+
+            ),
         }
     };
 }

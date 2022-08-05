@@ -4,20 +4,19 @@ macro_rules! assert_matches {
     ($expression:expr, $($pattern:pat_param)|+ $(if $guard:expr)? $(,)?) => {
         match $expression {
             $($pattern)|+ $(if $guard)? => {},
-            other => $crate::panicking::assert_matches_failed(
-                $crate::panicking::Value::Ref(&other),
+            other => $crate::assert_matches_failed!(
+                $crate::panicking::Ref(&other),
                 stringify!($($pattern)|+ $(if $guard)?),
-                None,
-            )
+            ),
         }
     };
     ($expression:expr, $($pattern:pat_param)|+ $(if $guard:expr)?, $($arg:tt)+) => {
         match $expression {
             $($pattern)|+ $(if $guard)? => {},
-            other => $crate::panicking::assert_matches_failed(
-                $crate::panicking::Value::Ref(&other),
+            other => $crate::assert_matches_failed!(
+                $crate::panicking::Ref(&other),
                 stringify!($($pattern)|+ $(if $guard)?),
-                Some(format_args!($($arg)+)),
+                $($arg)+
             )
         }
     };
