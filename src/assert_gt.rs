@@ -3,22 +3,21 @@
 macro_rules! assert_gt {
     ($left:expr, $right:expr $(,)?) => {
         match (&$left, &$right) {
-            (left, right) if !(*left > *right) => $crate::panicking::assert_comparison_failed(
+            (left, right) if !(*left > *right) => $crate::assert_comparison_failed!(
+                $crate::panicking::Ref(left),
                 $crate::panicking::Comparison::Greater,
-                $crate::panicking::Value::Ref(left),
-                $crate::panicking::Value::Ref(right),
-                None,
+                $crate::panicking::Ref(right),
             ),
             _ => {}
         }
     };
     ($left:expr, $right:expr, $($arg:tt)+) => {
         match (&$left, &$right) {
-            (left, right) if !(*left > *right) => $crate::panicking::assert_comparison_failed(
+            (left, right) if !(*left > *right) => $crate::assert_comparison_failed!(
+                $crate::panicking::Ref(left),
                 $crate::panicking::Comparison::Greater,
-                $crate::panicking::Value::Ref(left),
-                $crate::panicking::Value::Ref(right),
-                Some(format_args!($($arg)+)),
+                $crate::panicking::Ref(right),
+                $($arg)+
             ),
             _ => {}
         }

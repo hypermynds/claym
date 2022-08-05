@@ -14,54 +14,26 @@ impl<'a, T: fmt::Debug> fmt::Debug for Value<'a, T> {
         }
     }
 }
-
-/// Internal function for `assert_*!` macros.
 #[doc(hidden)]
-pub fn assert_failed<T>(
-    expected: Value<'_, T>,
-    unexpected: Value<'_, T>,
-    args: Option<fmt::Arguments<'_>>,
-) -> !
+pub struct Ref<'a, T>(pub &'a T);
+
+impl<'a, T> fmt::Debug for Ref<'a, T>
 where
     T: fmt::Debug,
 {
-    match args {
-        Some(args) => core::panic!(
-            "assertion failed: expected {:?}, got {:?}\n{}",
-            expected,
-            unexpected,
-            args,
-        ),
-        None => core::panic!(
-            "assertion failed: expected {:?}, got {:?}",
-            expected,
-            unexpected,
-        ),
+    #[inline(always)]
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "`{:?}`", self.0)
     }
 }
 
-/// Internal function for `assert_matches!` macro.
 #[doc(hidden)]
-pub fn assert_matches_failed<T>(
-    unexpected: Value<'_, T>,
-    variants: &'static str,
-    args: Option<fmt::Arguments<'_>>,
-) -> !
-where
-    T: fmt::Debug,
-{
-    match args {
-        Some(args) => core::panic!(
-            "assertion failed: expression does not match any of the given variants, got {:?}\nvariants: `{}`\n{}",
-            unexpected,
-            variants,
-            args,
-        ),
-        None => core::panic!(
-            "assertion failed: expression does not match any of the given variants, got {:?}\nvariants: `{}`",
-            unexpected,
-            variants,
-        ),
+pub struct Msg(pub &'static str);
+
+impl fmt::Debug for Msg {
+    #[inline(always)]
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.0)
     }
 }
 
@@ -84,31 +56,67 @@ impl fmt::Display for Comparison {
     }
 }
 
+/// Internal macro for `assert_*!` macros.
+#[doc(hidden)]
+#[macro_export]
+macro_rules! assert_failed {
+    ($expected:expr, $unexpected:expr, $($arg:tt)+) => {
+        core::panic!(
+            "assertion failed: expected {:?}, got {:?}\n{}",
+            $expected,
+            $unexpected,
+            core::format_args!($($arg)+)
+        )
+    };
+    ($expected:expr, $unexpected:expr $(,)?) => {
+        core::panic!(
+            "assertion failed: expected {:?}, got {:?}",
+            $expected,
+            $unexpected
+        )
+    };
+}
+
+/// Internal function for `assert_matches!` macro.
+#[doc(hidden)]
+#[macro_export]
+macro_rules! assert_matches_failed {
+    ($unexpected:expr, $variants:expr, $($arg:tt)+) => {
+        core::panic!(
+            "assertion failed: expression does not match any of the given variants, got {:?}\nvariants: `{}`\n{}",
+            $unexpected,
+            $variants,
+            core::format_args!($($arg)+)
+        )
+    };
+    ($unexpected:expr, $variants:expr $(,)?) => {
+        core::panic!(
+            "assertion failed: expression does not match any of the given variants, got {:?}\nvariants: `{}`",
+            $unexpected,
+            $variants,
+        )
+    };
+}
+
 /// Internal function for `assert_*` comparison macros.
 #[doc(hidden)]
-pub fn assert_comparison_failed<L, R>(
-    cmp: Comparison,
-    left: Value<'_, L>,
-    right: Value<'_, R>,
-    args: Option<fmt::Arguments<'_>>,
-) -> !
-where
-    L: fmt::Debug,
-    R: fmt::Debug,
-{
-    match args {
-        Some(args) => core::panic!(
+#[macro_export]
+macro_rules! assert_comparison_failed {
+    ($left:expr, $cmp:expr, $right:expr, $($arg:tt)+) => {
+        core::panic!(
             "assertion failed: left {} right\n left: {:?}\nright: {:?}\n{}",
-            cmp,
-            left,
-            right,
-            args,
-        ),
-        None => core::panic!(
+            $cmp,
+            $left,
+            $right,
+            core::format_args!($($arg)+)
+        )
+    };
+    ($left:expr, $cmp:expr, $right:expr $(,)?) => {
+        core::panic!(
             "assertion failed: left {} right\n left: {:?}\nright: {:?}",
-            cmp,
-            left,
-            right,
-        ),
-    }
+            $cmp,
+            $left,
+            $right,
+        )
+    };
 }

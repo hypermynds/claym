@@ -6,25 +6,20 @@ macro_rules! assert_ready_err {
     ($cond:expr $(,)?) => {
         match $cond {
             core::task::Poll::Ready(Err(err)) => err,
-            poll => {
-                $crate::panicking::assert_failed(
-                    $crate::panicking::Value::Str("`Ready(Err(..))`"),
-                    $crate::panicking::Value::Ref(&poll),
-                    None,
-                );
-            }
+            poll => $crate::assert_failed!(
+                $crate::panicking::Msg("`Ready(Err(..))`"),
+                $crate::panicking::Ref(&poll),
+            ),
         }
     };
     ($cond:expr, $($arg:tt)+) => {
         match $cond {
             core::task::Poll::Ready(Err(err)) => err,
-            poll => {
-                $crate::panicking::assert_failed(
-                    $crate::panicking::Value::Str("`Ready(Err(..))`"),
-                    $crate::panicking::Value::Ref(&poll),
-                    Some(format_args!($($arg)+)),
-                );
-            }
+            poll => $crate::assert_failed!(
+                $crate::panicking::Msg("`Ready(Err(..))`"),
+                $crate::panicking::Ref(&poll),
+                $($arg)+
+            ),
         }
     };
 }
