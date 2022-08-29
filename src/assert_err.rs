@@ -4,18 +4,18 @@ macro_rules! assert_err {
     ($cond:expr $(,)?) => {
         match $cond {
             Err(err) => err,
-            ok @ Ok(_) => $crate::assert_failed!(
+            Ok(ok) => $crate::assert_failed!(
                 $crate::panicking::Msg("`Err(..)`"),
-                $crate::panicking::Ref(&ok),
+                $crate::panicking::Ref(&format_args!("Ok({:?})", ok)),
             ),
         }
     };
     ($cond:expr, $($arg:tt)+) => {
         match $cond {
             Err(err) => err,
-            ok @ Ok(_) => $crate::assert_failed!(
+            Ok(ok) => $crate::assert_failed!(
                 $crate::panicking::Msg("`Err(..)`"),
-                $crate::panicking::Ref(&ok),
+                $crate::panicking::Ref(&format_args!("Ok({:?})", ok)),
                 $($arg)+
             ),
         }
@@ -49,5 +49,13 @@ mod tests {
     #[test]
     fn check_assert_err_pass() {
         assert_err!(Result::<bool, ()>::Err(()));
+    }
+
+    #[test]
+    fn check_assert_err_does_not_require_err_debug() {
+        struct Empty;
+
+        assert_err!(Result::<(), Empty>::Err(Empty));
+        assert_err!(Result::<(), Empty>::Err(Empty), "i'm confused");
     }
 }
