@@ -4,17 +4,19 @@ macro_rules! assert_matches {
     ($expression:expr, $($pattern:pat_param)|+ $(if $guard:expr)? $(,)?) => {
         match $expression {
             $($pattern)|+ $(if $guard)? => {},
-            other => $crate::assert_matches_failed!(
-                $crate::panicking::Ref(&other),
+            other => core::panic!(
+                "assertion failed: expression does not match any of the given variants, got `{:?}`\nvariants: `{}`",
+                other,
                 stringify!($($pattern)|+ $(if $guard)?),
-            ),
+            )
         }
     };
     ($expression:expr, $($pattern:pat_param)|+ $(if $guard:expr)?, $($arg:tt)+) => {
         match $expression {
             $($pattern)|+ $(if $guard)? => {},
-            other => $crate::assert_matches_failed!(
-                $crate::panicking::Ref(&other),
+            other => core::panic!(
+                "assertion failed: expression does not match any of the given variants, got `{:?}`\nvariants: `{}`\n{}",
+                other,
                 stringify!($($pattern)|+ $(if $guard)?),
                 $($arg)+
             )
