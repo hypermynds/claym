@@ -39,7 +39,7 @@ mod tests {
 
     #[test]
     #[should_panic(expected = "assertion failed: expected `Ok(..)`, got `Err(())`\ni'm confused")]
-    fn check_assert_some_eq_panic_with_message() {
+    fn check_assert_ok_eq_panic_with_message() {
         assert_ok_eq!(Result::<bool, _>::Err(()), true, "i'm confused");
     }
 

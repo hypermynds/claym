@@ -19,6 +19,7 @@
 //! Assertions for [`Result`] variants:
 //!
 //! * [`assert_err!`]
+//! * [`assert_err_eq!`]
 //! * [`assert_ok!`]
 //! * [`assert_ok_eq!`]
 //!
@@ -39,6 +40,7 @@
 //! [`Poll`]: core::task::Poll
 
 mod assert_err;
+mod assert_err_eq;
 mod assert_ge;
 mod assert_gt;
 mod assert_le;
