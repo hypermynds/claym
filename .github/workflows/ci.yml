@@ -20,17 +20,13 @@ jobs:
       - name: Setup | Checkout repository
         uses: actions/checkout@v3
       - name: Setup | Install rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@master
         with:
-          profile: minimal
           toolchain: ${{ matrix.toolchain }}
-          override: true
       - name: Setup | Cache rust
-        uses: Swatinem/rust-cache@v1
+        uses: Swatinem/rust-cache@v2
       - name: Run | Run cargo test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
+        run: cargo test
   fmt:
     name: Formatting
     runs-on: ubuntu-latest
@@ -38,18 +34,11 @@ jobs:
       - name: Setup | Checkout repository
         uses: actions/checkout@v3
       - name: Setup | Install rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@master
         with:
-          profile: minimal
           toolchain: stable
-          override: true
-      - name: Setup | Cache rust
-        uses: Swatinem/rust-cache@v1
       - name: Check | Formatting
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
+        run: cargo fmt --all -- --check
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
@@ -57,16 +46,10 @@ jobs:
       - name: Setup | Checkout repository
         uses: actions/checkout@v3
       - name: Setup | Install rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@master
         with:
-          profile: minimal
           toolchain: stable
-          override: true
       - name: Setup | Cache rust
-        uses: Swatinem/rust-cache@v1
+        uses: Swatinem/rust-cache@v2
       - name: Check | Run clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --tests -- -D warnings
-
+        run: cargo clippy --tests -- -D warnings
