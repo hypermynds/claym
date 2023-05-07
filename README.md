@@ -9,10 +9,10 @@
 
 ## Overview
 
-This crate provides the same assertion macros of
-[claim](https://crates.io/crates/claim), but it has been devepoled without
-dependencies (included build dependencies) and to be used only with newer
-version of Rust.
+This crate provides the same assertion macros as 
+[claim](https://crates.io/crates/claim), but it has been developed without
+dependencies (including build dependencies) and is intended for use only with
+newer versions of Rust.
 
 Add the following to your `Cargo.toml` manifest to replace `claim` with `claym`
 for tests:
