@@ -19,13 +19,12 @@ for tests:
 
 ```toml
 [dev-dependencies]
-claim = { package = "claym", version = "0.4.0" }
+claim = { package = "claym", version = "0.6.0" }
 ```
-
 
 ## License
 
-Licensed under either of [Apache License 2.0](LICENSE-APACHE) or 
+Licensed under either of [Apache License 2.0](LICENSE-APACHE) or
 [MIT license](LICENSE-MIT) at your option.
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
