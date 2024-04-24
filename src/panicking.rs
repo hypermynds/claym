@@ -1,7 +1,4 @@
-use core::{
-    borrow::Borrow,
-    fmt::{self, Debug},
-};
+use core::{borrow::Borrow, fmt};
 
 #[doc(hidden)]
 pub struct Ref<'a, T>(pub &'a T);
@@ -94,7 +91,7 @@ pub fn check_contains<I, B>(container: I, expected: B) -> bool
 where
     I: IntoIterator,
     B: Borrow<I::Item>,
-    I::Item: PartialEq + Debug,
+    I::Item: PartialEq + fmt::Debug,
 {
     container
         .into_iter()
