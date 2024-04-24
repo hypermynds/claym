@@ -17,39 +17,31 @@ jobs:
           - 1.56
           - stable
     steps:
-      - name: Setup | Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup | Install rust toolchain
-        uses: dtolnay/rust-toolchain@master
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.toolchain }}
-      - name: Setup | Cache rust
-        uses: Swatinem/rust-cache@v2
-      - name: Run | Run cargo test
-        run: cargo test
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@cargo-nextest
+      - run: cargo nextest run
   fmt:
     name: Formatting
     runs-on: ubuntu-latest
     steps:
-      - name: Setup | Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup | Install rust toolchain
-        uses: dtolnay/rust-toolchain@master
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: stable
-      - name: Check | Formatting
-        run: cargo fmt --all -- --check
+          components: clippy
+      - run: cargo fmt --all -- --check
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
     steps:
-      - name: Setup | Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup | Install rust toolchain
-        uses: dtolnay/rust-toolchain@master
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: stable
-      - name: Setup | Cache rust
-        uses: Swatinem/rust-cache@v2
-      - name: Check | Run clippy
-        run: cargo clippy --tests -- -D warnings
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo clippy --all --tests --all-features --no-deps
