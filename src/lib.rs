@@ -40,6 +40,7 @@
 //! Assertions for [`Iterator`] variants:
 //!
 //! * [`assert_contains!`]
+//! * [`assert_has_length!`]
 //! * [`assert_is_empty!`]
 //! * [`assert_is_not_empty!`]
 //!
@@ -51,6 +52,7 @@ mod assert_err;
 mod assert_err_eq;
 mod assert_ge;
 mod assert_gt;
+mod assert_has_length;
 mod assert_is_empty;
 mod assert_is_not_empty;
 mod assert_le;

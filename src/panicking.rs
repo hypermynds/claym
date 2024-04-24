@@ -105,3 +105,13 @@ where
 {
     container.into_iter().next().is_none()
 }
+
+#[doc(hidden)]
+pub fn check_has_length<I>(container: I, length: usize) -> Option<usize>
+where
+    I: IntoIterator,
+{
+    let container_length = container.into_iter().count();
+
+    (container_length != length).then_some(container_length)
+}
