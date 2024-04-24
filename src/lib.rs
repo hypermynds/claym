@@ -37,8 +37,14 @@
 //! * [`assert_ready_err!`]
 //! * [`assert_ready_ok!`]
 //!
+//! Assertions for [`Iterator`] variants:
+//!
+//! * [`assert_contains!`]
+//!
 //! [`Poll`]: core::task::Poll
+//! [`Iterator`]: core::iter::Iterator
 
+mod assert_contains;
 mod assert_err;
 mod assert_err_eq;
 mod assert_ge;

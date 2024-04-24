@@ -1,4 +1,7 @@
-use core::fmt;
+use core::{
+    borrow::Borrow,
+    fmt::{self, Debug},
+};
 
 #[doc(hidden)]
 pub struct Ref<'a, T>(pub &'a T);
@@ -84,4 +87,16 @@ macro_rules! assert_comparison_failed {
             $right,
         )
     };
+}
+
+#[doc(hidden)]
+pub fn check_contains<I, B>(container: I, expected: B) -> bool
+where
+    I: IntoIterator,
+    B: Borrow<I::Item>,
+    I::Item: PartialEq + Debug,
+{
+    container
+        .into_iter()
+        .any(|element| element.eq(expected.borrow()))
 }
