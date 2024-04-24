@@ -40,6 +40,7 @@
 //! Assertions for [`Iterator`] variants:
 //!
 //! * [`assert_contains!`]
+//! * [`assert_is_empty!`]
 //!
 //! [`Poll`]: core::task::Poll
 //! [`Iterator`]: core::iter::Iterator
@@ -49,6 +50,7 @@ mod assert_err;
 mod assert_err_eq;
 mod assert_ge;
 mod assert_gt;
+mod assert_is_empty;
 mod assert_le;
 mod assert_lt;
 mod assert_matches;

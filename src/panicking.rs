@@ -100,3 +100,11 @@ where
         .into_iter()
         .any(|element| element.eq(expected.borrow()))
 }
+
+#[doc(hidden)]
+pub fn check_is_empty<I>(container: I) -> bool
+where
+    I: IntoIterator,
+{
+    container.into_iter().next().is_none()
+}
