@@ -113,5 +113,9 @@ where
 {
     let container_length = container.into_iter().count();
 
-    (container_length != length).then_some(container_length)
+    if container_length == length {
+        None
+    } else {
+        Some(container_length)
+    }
 }
